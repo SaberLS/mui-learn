@@ -1,6 +1,4 @@
 import * as React from 'react';
-import { styled, alpha } from '@mui/material/styles';
-import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
@@ -9,6 +7,8 @@ import InputBase from '@mui/material/InputBase';
 import MenuIcon from '@mui/icons-material/Menu';
 import Icon from '@mui/icons-material/Search';
 import { SvgIcon } from '@mui/material';
+import { styled, alpha } from '@mui/material/styles';
+import AppBar from '@mui/material/AppBar';
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -49,17 +49,25 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
 }));
 
-export default function SearchAppBar() {
+
+
+export default function SearchAppBar({ toggleDrawer }) {
     return (
-        <Box sx={{ flexGrow: 1 }}>
-            <AppBar position="static">
+        <Box sx={{}}>
+            <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
                 <Toolbar>
-                    <IconButton
+                    <IconButton onClick={toggleDrawer()}
                         size="large"
                         edge="start"
                         color="inherit"
                         aria-label="open drawer"
-                        sx={{ mr: 2 }}
+                        sx={{
+                            mr: 2,
+                            backgroundColor: '#555fe2',
+                            '&:hover': {
+                                backgroundColor: 'primary.light',
+                            }
+                        }}
                     >
                         <MenuIcon />
                     </IconButton>
@@ -70,12 +78,18 @@ export default function SearchAppBar() {
                         align="center"
                         sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
                     >
-                        <IconButton href="https://mui.com/toolpad/studio/getting-started/" target="blank" sx={{
-                            backgroundColor: '#555fe2',
-                            '&:hover': {
-                                backgroundColor: 'primary.light',
-                            },
-                        }}>
+                        <IconButton href="https://mui.com/toolpad/studio/getting-started/"
+                            target="blank"
+                            size="large"
+                            edge="start"
+                            color="inherit"
+                            aria-label="logo"
+                            sx={{
+                                backgroundColor: '#555fe2',
+                                '&:hover': {
+                                    backgroundColor: 'primary.light',
+                                },
+                            }}>
                             <SvgIcon>
                                 <svg viewBox="0 0 600 476.30000000000007" xmlns="http://www.w3.org/2000/svg" width="24" height="24">
                                     <path d="M0 259.8V0l225 129.9v86.6L75 129.9v173.2z" fill="#00b0ff" />
@@ -98,5 +112,6 @@ export default function SearchAppBar() {
                 </Toolbar>
             </AppBar>
         </Box>
+
     );
 }
